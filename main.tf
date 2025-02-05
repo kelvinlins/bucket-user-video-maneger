@@ -11,10 +11,6 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
-lifecycle {
-    create_before_destroy = true  # Garante que o recurso será substituído antes de ser destruído
-}
-
 # Configuração para notificar o EventBridge quando um arquivo for enviado para o S3
 resource "aws_s3_bucket_notification" "evento_s3" {
   bucket = aws_s3_bucket.bucket.id
