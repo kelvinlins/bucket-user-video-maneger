@@ -11,13 +11,20 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
-# Configuração para notificar o EventBridge quando um arquivo for enviado para o S3
-resource "aws_s3_bucket_notification" "evento_s3" {
-  bucket = aws_s3_bucket.bucket.id
+resource "aws_s3_bucket" "bucket" {
+  bucket = var.bucket_name
 
-  eventbridge {
-    # Configuração para enviar eventos para o EventBridge
+  versioning {
+    enabled = true
   }
+}
+
+resource "aws_s3_bucket_notification" "evento_s3" {
+  bucket = aws_s3_bucket.bucket.bucket
+
+  eventbridge = true  # Configura a notificação para o EventBridge
+
+  # Pode adicionar outros tipos de notificações aqui, como SNS ou SQS, se necessário
 }
 
 output "bucket_name" {
