@@ -11,14 +11,6 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
-resource "aws_s3_bucket" "bucket" {
-  bucket = var.bucket_name
-
-  versioning {
-    enabled = true
-  }
-}
-
 resource "aws_s3_bucket_notification" "evento_s3" {
   bucket = aws_s3_bucket.bucket.bucket
 
